@@ -1,0 +1,5 @@
+SELECT syscolumns.name,systypes.name,syscolumns.isnullable,
+syscolumns.length
+FROM syscolumns, systypes
+WHERE syscolumns.xusertype = systypes.xusertype
+AND syscolumns.id=object_id('ET_Configuration.dbo.ContentVariables')
