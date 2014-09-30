@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.CommandBars;
 using System.Resources;
 using System.Reflection;
 using System.Globalization;
+using SSMSTool.Common;
 
 namespace SSMSTool
 {
@@ -29,42 +30,25 @@ namespace SSMSTool
 		{
             _addInInstance = (AddIn)addInInst;
             _applicationObject = (DTE2)_addInInstance.DTE;
-            
-            //if(connectMode == ext_ConnectMode.ext_cm_UISetup)
-            //{
-            //    object []contextGUIDS = new object[] { };
-            //    Commands2 commands = (Commands2)_applicationObject.Commands;
-            //    string toolsMenuName = "Tools";
 
-            //    //Place the command on the tools menu.
-            //    //Find the MenuBar command bar, which is the top-level command bar holding all the main menu items:
-            //    Microsoft.VisualStudio.CommandBars.CommandBar menuBarCommandBar = ((Microsoft.VisualStudio.CommandBars.CommandBars)_applicationObject.CommandBars)["MenuBar"];
-
-            //    //Find the Tools command bar on the MenuBar command bar:
-            //    CommandBarControl toolsControl = menuBarCommandBar.Controls[toolsMenuName];
-            //    CommandBarPopup toolsPopup = (CommandBarPopup)toolsControl;
-
-            //    //This try/catch block can be duplicated if you wish to add multiple commands to be handled by your Add-in,
-            //    //  just make sure you also update the QueryStatus/Exec method to include the new command names.
-            //    try
-            //    {
-            //        //Add a command to the Commands collection:
-            //        Command command = commands.AddNamedCommand2(_addInInstance, "SSMSTool", "SSMSTool", "Executes the command for SSMSTool", true, 59, ref contextGUIDS, (int)vsCommandStatus.vsCommandStatusSupported+(int)vsCommandStatus.vsCommandStatusEnabled, (int)vsCommandStyle.vsCommandStylePictAndText, vsCommandControlType.vsCommandControlTypeButton);
-
-            //        //Add a control for the command to the tools menu:
-            //        if((command != null) && (toolsPopup != null))
-            //        {
-            //            command.AddControl(toolsPopup.CommandBar, 1);
-            //        }
-            //    }
-            //    catch(System.ArgumentException)
-            //    {
-            //        //If we are here, then the exception is probably because a command with that name
-            //        //  already exists. If so there is no need to recreate the command and we can 
-            //        //  safely ignore the exception.
-            //    }
-            //}
+            if (connectMode == ext_ConnectMode.ext_cm_Startup)
+            {
+                CreateUI();
+            }
 		}
+
+        
+        private void CreateUI()
+        {
+            pluginManager = new PluginManager(_applicationObject, _addInInstance);
+
+            CommandBarPopup toolCommandBar = pluginManager.MenuManager.CreatePopupMenu("MenuBar", "SQL Tools");
+            
+
+            //CategoryToolCommand categoryToolCommand = new CategoryToolCommand(_applicationObject);
+            //categoryToolCommand.OnCommandClick += command_OnCommandClick;
+            //pluginManager.MenuManager.AddCommandMenu(toolCommandBar, categoryToolCommand, 1);
+        }
 
 		/// <summary>Implements the OnDisconnection method of the IDTExtensibility2 interface. Receives notification that the Add-in is being unloaded.</summary>
 		/// <param term='disconnectMode'>Describes how the Add-in is being unloaded.</param>
@@ -132,7 +116,9 @@ namespace SSMSTool
 				}
 			}
 		}
+
 		private DTE2 _applicationObject;
 		private AddIn _addInInstance;
+        private PluginManager pluginManager = null;
 	}
 }

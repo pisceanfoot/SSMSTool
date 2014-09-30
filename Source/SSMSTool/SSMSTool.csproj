@@ -44,6 +44,7 @@
     <Reference Include="Microsoft.SqlServer.SqlTools.VSIntegration">
       <HintPath>..\Lib\Microsoft.SqlServer.SqlTools.VSIntegration.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="SqlWorkbench.Interfaces">
       <HintPath>..\Lib\SqlWorkbench.Interfaces.dll</HintPath>
     </Reference>
@@ -57,6 +58,10 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\CommandBase.cs" />
+    <Compile Include="Common\MenuManager.cs" />
+    <Compile Include="Common\PluginManager.cs" />
+    <Compile Include="Common\WindowManager.cs" />
     <Compile Include="Connect.cs">
       <SubType>Code</SubType>
     </Compile>
