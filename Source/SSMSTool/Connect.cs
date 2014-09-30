@@ -43,7 +43,7 @@ namespace SSMSTool
             pluginManager = new PluginManager(_applicationObject, _addInInstance);
 
             CommandBarPopup toolCommandBar = pluginManager.MenuManager.CreatePopupMenu("MenuBar", "SQL Tools");
-            
+            pluginManager.MenuManager.CreatePopupMenu(toolCommandBar, "", 0);
 
             //CategoryToolCommand categoryToolCommand = new CategoryToolCommand(_applicationObject);
             //categoryToolCommand.OnCommandClick += command_OnCommandClick;
