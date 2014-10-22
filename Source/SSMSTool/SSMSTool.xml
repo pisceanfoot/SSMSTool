@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SSMSTool</name>
+    </assembly>
+    <members>
+        <member name="T:SSMSTool.Common.CommandBase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SSMSTool.Common.CommandBase.#ctor(EnvDTE80.DTE2,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandBase"/> class.
+            </summary>
+            <param name="application">The application.</param>
+            <param name="caption">The caption code.</param>
+            <param name="tooltipText">The tooltip text code.</param>
+        </member>
+        <member name="M:SSMSTool.Common.CommandBase.Perform">
+            <summary>
+            Performs this instance.
+            </summary>
+        </member>
+        <member name="M:SSMSTool.Common.CommandBase.writeReadOW(System.String,System.String)">
+            <summary>
+            ����� OutputWindow
+            </summary>
+            <param name="type"></param>
+            <param name="message"></param>
+        </member>
+        <member name="E:SSMSTool.Common.CommandBase.OnCommandClick">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SSMSTool.Common.CommandBase.Application">
+            <summary>
+            Gets or sets the application.
+            </summary>
+            <value>The application.</value>
+        </member>
+        <member name="P:SSMSTool.Common.CommandBase.Id">
+            <summary>
+            Gets the id.
+            </summary>
+            <value>The id.</value>
+        </member>
+        <member name="P:SSMSTool.Common.CommandBase.Name">
+            <summary>
+            Gets the name.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:SSMSTool.Common.CommandBase.Caption">
+            <summary>
+            Gets or sets the caption.
+            </summary>
+            <value>The caption.</value>
+        </member>
+        <member name="P:SSMSTool.Common.CommandBase.TooltipText">
+            <summary>
+            Gets or sets the tooltip text.
+            </summary>
+            <value>The tooltip text.</value>
+        </member>
+        <member name="T:SSMSTool.Common.CommandBase.OnCommandClickHandler">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:SSMSTool.Common.MenuManager">
+            <summary>
+            Add menu or command
+            </summary>
+        </member>
+        <member name="M:SSMSTool.Common.MenuManager.#ctor(EnvDTE80.DTE2)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MenuManager"/> class.
+            </summary>
+            <param name="application">The application.</param>
+        </member>
+        <member name="M:SSMSTool.Common.MenuManager.CreatePopupMenu(System.String,System.String)">
+            <summary>
+            Creates the popup menu.
+            </summary>
+            <param name="commandBarName">Name of the command bar.</param>
+            <param name="menuName">Name of the menu.</param>
+            <returns></returns>
+        </member>
+        <member name="M:SSMSTool.Common.MenuManager.CreatePopupMenu(Microsoft.VisualStudio.CommandBars.CommandBarPopup,System.String,System.Int32)">
+            <summary>
+            Creates the popup menu.
+            </summary>
+            <param name="popupMenu">The popup menu.</param>
+            <param name="subPopupMenuName">Name of the sub popup menu.</param>
+            <param name="position">The position.</param>
+        </member>
+        <member name="M:SSMSTool.Common.MenuManager.CreateMenu(System.String,SSMSTool.Common.CommandBase)">
+            <summary>
+            Creates the menu.
+            </summary>
+            <param name="commandBarName">Name of the command bar.</param>
+            <param name="menuName">Name of the menu.</param>
+            <returns></returns>
+        </member>
+        <member name="M:SSMSTool.Common.MenuManager.CreateMenu(System.String,SSMSTool.Common.CommandBase,System.Int32)">
+            <summary>
+            Creates the menu.
+            </summary>
+            <param name="commandBarName">Name of the command bar.</param>
+            <param name="cmd"></param>
+            <param name="position">添加位置</param>
+            <returns></returns>
+        </member>
+        <member name="M:SSMSTool.Common.MenuManager.GetCommandBar(System.String)">
+            <summary>
+            Gets the command bar.
+            </summary>
+            <param name="commandBarName">Name of the command bar.</param>
+            <returns></returns>
+        </member>
+        <member name="M:SSMSTool.Common.MenuManager.AddCommandMenu(Microsoft.VisualStudio.CommandBars.CommandBarPopup,SSMSTool.Common.CommandBase,System.Int32)">
+            <summary>
+            Adds the command.
+            </summary>
+            <param name="menu">The popup menu.</param>
+            <param name="cmd">The command.</param>
+            <param name="position">The position in the menu.</param>
+        </member>
+        <member name="M:SSMSTool.Common.MenuManager.AddMenuItem(Microsoft.VisualStudio.CommandBars.CommandBarPopup,SSMSTool.Common.CommandBase,System.Int32)">
+            <summary>
+            Add the menu item to the popup menu
+            </summary>
+            <param name="menu">The menu.</param>
+            <param name="cmd">The CMD.</param>
+            <param name="position">The position.</param>
+            <returns></returns>
+        </member>
+        <member name="M:SSMSTool.Common.MenuManager.AddClickEventHandler(Microsoft.VisualStudio.CommandBars.CommandBarControl)">
+            <summary>
+            Adds handler to the menu item click event.
+            </summary>
+            <param name="menuItem">The menu item.</param>
+        </member>
+        <member name="M:SSMSTool.Common.MenuManager.AddCommandToList(SSMSTool.Common.CommandBase)">
+            <summary>
+            Adds the command to list.
+            </summary>
+            <param name="cmd">The CMD.</param>
+        </member>
+        <member name="M:SSMSTool.Common.MenuManager.MenuItem_Click(System.Object,System.Boolean@,System.Boolean@)">
+            <summary>
+            Handles the click on the menu item
+            </summary>
+            <param name="commandBarControl">The command bar control.</param>
+            <param name="handled">if set to <c>true</c> [handled].</param>
+            <param name="cancelDefault">if set to <c>true</c> [cancel default].</param>
+        </member>
+        <member name="T:SSMSTool.Connect">
+            <summary>The object for implementing an Add-in.</summary>
+            <seealso class='IDTExtensibility2' />
+        </member>
+        <member name="M:SSMSTool.Connect.#ctor">
+            <summary>Implements the constructor for the Add-in object. Place your initialization code within this method.</summary>
+        </member>
+        <member name="M:SSMSTool.Connect.OnConnection(System.Object,Extensibility.ext_ConnectMode,System.Object,System.Array@)">
+            <summary>Implements the OnConnection method of the IDTExtensibility2 interface. Receives notification that the Add-in is being loaded.</summary>
+            <param term='application'>Root object of the host application.</param>
+            <param term='connectMode'>Describes how the Add-in is being loaded.</param>
+            <param term='addInInst'>Object representing this Add-in.</param>
+            <seealso class='IDTExtensibility2' />
+        </member>
+        <member name="M:SSMSTool.Connect.OnDisconnection(Extensibility.ext_DisconnectMode,System.Array@)">
+            <summary>Implements the OnDisconnection method of the IDTExtensibility2 interface. Receives notification that the Add-in is being unloaded.</summary>
+            <param term='disconnectMode'>Describes how the Add-in is being unloaded.</param>
+            <param term='custom'>Array of parameters that are host application specific.</param>
+            <seealso class='IDTExtensibility2' />
+        </member>
+        <member name="M:SSMSTool.Connect.OnAddInsUpdate(System.Array@)">
+            <summary>Implements the OnAddInsUpdate method of the IDTExtensibility2 interface. Receives notification when the collection of Add-ins has changed.</summary>
+            <param term='custom'>Array of parameters that are host application specific.</param>
+            <seealso class='IDTExtensibility2' />		
+        </member>
+        <member name="M:SSMSTool.Connect.OnStartupComplete(System.Array@)">
+            <summary>Implements the OnStartupComplete method of the IDTExtensibility2 interface. Receives notification that the host application has completed loading.</summary>
+            <param term='custom'>Array of parameters that are host application specific.</param>
+            <seealso class='IDTExtensibility2' />
+        </member>
+        <member name="M:SSMSTool.Connect.OnBeginShutdown(System.Array@)">
+            <summary>Implements the OnBeginShutdown method of the IDTExtensibility2 interface. Receives notification that the host application is being unloaded.</summary>
+            <param term='custom'>Array of parameters that are host application specific.</param>
+            <seealso class='IDTExtensibility2' />
+        </member>
+        <member name="M:SSMSTool.Connect.QueryStatus(System.String,EnvDTE.vsCommandStatusTextWanted,EnvDTE.vsCommandStatus@,System.Object@)">
+            <summary>Implements the QueryStatus method of the IDTCommandTarget interface. This is called when the command's availability is updated</summary>
+            <param term='commandName'>The name of the command to determine state for.</param>
+            <param term='neededText'>Text that is needed for the command.</param>
+            <param term='status'>The state of the command in the user interface.</param>
+            <param term='commandText'>Text requested by the neededText parameter.</param>
+            <seealso class='Exec' />
+        </member>
+        <member name="M:SSMSTool.Connect.Exec(System.String,EnvDTE.vsCommandExecOption,System.Object@,System.Object@,System.Boolean@)">
+            <summary>Implements the Exec method of the IDTCommandTarget interface. This is called when the command is invoked.</summary>
+            <param term='commandName'>The name of the command to execute.</param>
+            <param term='executeOption'>Describes how the command should be run.</param>
+            <param term='varIn'>Parameters passed from the caller to the command handler.</param>
+            <param term='varOut'>Parameters passed from the command handler to the caller.</param>
+            <param term='handled'>Informs the caller if the command was handled or not.</param>
+            <seealso class='Exec' />
+        </member>
+    </members>
+</doc>

@@ -128,6 +128,12 @@
   <ItemGroup>
     <None Include="readme.md" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuickFind\QuickFind.csproj">
+      <Project>{8b48a112-a3ef-4c8a-8fd6-f001ff06b486}</Project>
+      <Name>QuickFind</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
     <PreBuildEvent>
