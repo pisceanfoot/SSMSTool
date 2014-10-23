@@ -34,6 +34,7 @@ namespace SSMSTool.Common
         public DTE2 Application
         {
             get { return application; }
+            set { this.application = value; }
         }
 
         /// <summary>
@@ -95,9 +96,8 @@ namespace SSMSTool.Common
         /// <param name="application">The application.</param>
         /// <param name="caption">The caption code.</param>
         /// <param name="tooltipText">The tooltip text code.</param>
-        public CommandBase(DTE2 application, string caption, string tooltipText)
+        public CommandBase(string caption, string tooltipText)
         {
-            this.application = application;
             this.caption = caption;
             this.tooltipText = tooltipText;
         }

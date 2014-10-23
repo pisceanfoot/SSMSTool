@@ -57,8 +57,9 @@ namespace SSMSTool.Common
         /// </summary>
         /// <param name="commandBarName">Name of the command bar.</param>
         /// <param name="menuName">Name of the menu.</param>
+        /// <param name="position"></param>
         /// <returns></returns>
-        public CommandBarPopup CreatePopupMenu(string commandBarName, string menuName)
+        public CommandBarPopup CreatePopupMenu(string commandBarName, string menuName, int position)
         {
             CommandBar commandBar = GetCommandBar(commandBarName);
             if (commandBar != null)
@@ -69,7 +70,7 @@ namespace SSMSTool.Common
                 }
                 catch
                 {
-                    CommandBarPopup menu = commandBar.Controls.Add(MsoControlType.msoControlPopup, Missing.Value, Missing.Value, 1, true) as CommandBarPopup;
+                    CommandBarPopup menu = commandBar.Controls.Add(MsoControlType.msoControlPopup, Missing.Value, Missing.Value, position, true) as CommandBarPopup;
                     menu.Caption = menuName;
                     menu.TooltipText = "";
 
@@ -82,6 +83,22 @@ namespace SSMSTool.Common
             }
         }
 
+        public CommandBarPopup AddSubPopupMenu(CommandBarPopup commandBarPopup, string menuName, int position)
+        {
+            try
+            {
+                return commandBarPopup.CommandBar.Controls[menuName] as CommandBarPopup;
+            }
+            catch
+            {
+                CommandBarPopup menu = commandBarPopup.CommandBar.Controls.Add(MsoControlType.msoControlPopup, Missing.Value, Missing.Value, position, true) as CommandBarPopup;
+                menu.Caption = menuName;
+                menu.TooltipText = "";
+
+                return menu;
+            }
+        }
+
         /// <summary>
         /// Creates the popup menu.
         /// </summary>
@@ -90,9 +107,9 @@ namespace SSMSTool.Common
         /// <param name="position">The position.</param>
         public CommandBarPopup CreatePopupMenu(CommandBarPopup popupMenu, string subPopupMenuName, int position)
         {
-            CommandBarPopup menu = (CommandBarPopup)popupMenu.Controls.Add(MsoControlType.msoControlPopup, 1, "", position, true);
+            CommandBarPopup menu = (CommandBarPopup)popupMenu.Controls.Add(MsoControlType.msoControlPopup, Type.Missing, Type.Missing, position, true);
             menu.Caption = subPopupMenuName;
-            menu.TooltipText = "";
+            menu.TooltipText = subPopupMenuName;
             return menu;
         }
 
@@ -100,7 +117,7 @@ namespace SSMSTool.Common
         /// Creates the menu.
         /// </summary>
         /// <param name="commandBarName">Name of the command bar.</param>
-        /// <param name="menuName">Name of the menu.</param>
+        /// <param name="cmd">Name of the menu.</param>
         /// <returns></returns>
         public void CreateMenu(string commandBarName, CommandBase cmd)
         {
@@ -176,6 +193,8 @@ namespace SSMSTool.Common
         /// <returns></returns>
         private CommandBarControl AddMenuItem(CommandBarPopup menu, CommandBase cmd, int position)
         {
+            cmd.Application = this.application;
+
             CommandBarControl menuItem = menu.Controls.Add(MsoControlType.msoControlButton, 1, "", position, true);
             menuItem.Tag = cmd.Id.ToString();
             menuItem.Caption = cmd.Caption;

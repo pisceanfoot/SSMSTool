@@ -9,7 +9,7 @@
             
             </summary>
         </member>
-        <member name="M:SSMSTool.Common.CommandBase.#ctor(EnvDTE80.DTE2,System.String,System.String)">
+        <member name="M:SSMSTool.Common.CommandBase.#ctor(System.String,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:CommandBase"/> class.
             </summary>
@@ -80,12 +80,13 @@
             </summary>
             <param name="application">The application.</param>
         </member>
-        <member name="M:SSMSTool.Common.MenuManager.CreatePopupMenu(System.String,System.String)">
+        <member name="M:SSMSTool.Common.MenuManager.CreatePopupMenu(System.String,System.String,System.Int32)">
             <summary>
             Creates the popup menu.
             </summary>
             <param name="commandBarName">Name of the command bar.</param>
             <param name="menuName">Name of the menu.</param>
+            <param name="position"></param>
             <returns></returns>
         </member>
         <member name="M:SSMSTool.Common.MenuManager.CreatePopupMenu(Microsoft.VisualStudio.CommandBars.CommandBarPopup,System.String,System.Int32)">
@@ -101,7 +102,7 @@
             Creates the menu.
             </summary>
             <param name="commandBarName">Name of the command bar.</param>
-            <param name="menuName">Name of the menu.</param>
+            <param name="cmd">Name of the menu.</param>
             <returns></returns>
         </member>
         <member name="M:SSMSTool.Common.MenuManager.CreateMenu(System.String,SSMSTool.Common.CommandBase,System.Int32)">

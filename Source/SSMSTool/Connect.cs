@@ -7,6 +7,7 @@ using System.Resources;
 using System.Reflection;
 using System.Globalization;
 using SSMSTool.Common;
+using SSMSTool.Command;
 
 namespace SSMSTool
 {
@@ -42,12 +43,11 @@ namespace SSMSTool
         {
             pluginManager = new PluginManager(_applicationObject, _addInInstance);
 
-            CommandBarPopup toolCommandBar = pluginManager.MenuManager.CreatePopupMenu("MenuBar", "SQL Tools");
-            pluginManager.MenuManager.CreatePopupMenu(toolCommandBar, "", 0);
+            CommandBarPopup sqlToolCommandBar = pluginManager.MenuManager.CreatePopupMenu("MenuBar", "SQL Tools", 4);
+            //CommandBarPopup quickFindCommandBar = pluginManager.MenuManager.AddSubPopupMenu(sqlToolCommandBar, "Quick Find", 1);
 
-            //CategoryToolCommand categoryToolCommand = new CategoryToolCommand(_applicationObject);
-            //categoryToolCommand.OnCommandClick += command_OnCommandClick;
-            //pluginManager.MenuManager.AddCommandMenu(toolCommandBar, categoryToolCommand, 1);
+            TestCommand command = new TestCommand("Test", "ddd");
+            pluginManager.MenuManager.AddCommandMenu(sqlToolCommandBar, command, 1);
         }
 
 		/// <summary>Implements the OnDisconnection method of the IDTExtensibility2 interface. Receives notification that the Add-in is being unloaded.</summary>

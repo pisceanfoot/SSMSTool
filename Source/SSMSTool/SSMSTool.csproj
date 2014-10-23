@@ -58,6 +58,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Command\TestCommand.cs" />
     <Compile Include="Common\CommandBase.cs" />
     <Compile Include="Common\MenuManager.cs" />
     <Compile Include="Common\PluginManager.cs" />
