@@ -10,6 +10,7 @@ using System.Globalization;
 using SSMSTool.Common;
 using SSMSTool.Command;
 using SSMSTool.Common.Command;
+using SSMSTool.CodeSnippet;
 
 namespace SSMSTool
 {
@@ -18,7 +19,7 @@ namespace SSMSTool
 	public class Connect : IDTExtensibility2, IDTCommandTarget
 	{
         private string dteTypeName = null;
-        private CodeSnippet codeSnippet = null;
+        private CodeSnippetConnect codeSnippet = null;
 
 		/// <summary>Implements the constructor for the Add-in object. Place your initialization code within this method.</summary>
 		public Connect()
@@ -40,7 +41,7 @@ namespace SSMSTool
                 CreateUI();
             }
 
-            this.codeSnippet = new CodeSnippet(_applicationObject, _addInInstance);
+            this.codeSnippet = new CodeSnippetConnect(_applicationObject, _addInInstance);
 		}
 
         

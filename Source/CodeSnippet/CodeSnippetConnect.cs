@@ -7,13 +7,13 @@ using EnvDTE80;
 
 namespace SSMSTool.CodeSnippet
 {
-    public class CodeSnippet
+    public class CodeSnippetConnect
     {
         private DTE2 applicationObject;
         private AddIn addInInstance;
         private TextDocumentKeyPressEvents textPanelKeyEvent;
 
-        public CodeSnippet(DTE2 applicationObject, AddIn addInInstance)
+        public CodeSnippetConnect(DTE2 applicationObject, AddIn addInInstance)
         {
             this.applicationObject = applicationObject;
             this.addInInstance = addInInstance;

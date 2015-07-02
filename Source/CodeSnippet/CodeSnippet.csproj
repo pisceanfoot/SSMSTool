@@ -96,7 +96,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeSnippet.cs" />
+    <Compile Include="CodeSnippetConnect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
