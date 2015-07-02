@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using EnvDTE80;
 using SSMSTool.Common;
+using SSMSTool.Common.Command;
 
 namespace SSMSTool.Command
 {

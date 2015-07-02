@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
 
-namespace SSMSTool.Common
+namespace SSMSTool.Common.Command
 {
     public class WindowManager
     {

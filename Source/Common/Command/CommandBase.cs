@@ -2,7 +2,7 @@
 using EnvDTE;
 using EnvDTE80;
 
-namespace SSMSTool.Common
+namespace SSMSTool.Common.Command
 {
     /// <summary>
     /// 
@@ -114,7 +114,7 @@ namespace SSMSTool.Common
         }
 
         /// <summary>
-        /// ����� OutputWindow
+        /// OutputWindow
         /// </summary>
         /// <param name="type"></param>
         /// <param name="message"></param>

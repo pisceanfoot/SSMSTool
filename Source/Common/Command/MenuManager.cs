@@ -5,7 +5,7 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.CommandBars;
 
-namespace SSMSTool.Common
+namespace SSMSTool.Common.Command
 {
     /// <summary>
     /// Add menu or command
