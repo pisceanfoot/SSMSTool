@@ -100,8 +100,10 @@
     <Compile Include="Command\MenuManager.cs" />
     <Compile Include="Command\PluginManager.cs" />
     <Compile Include="Command\WindowManager.cs" />
+    <Compile Include="DataManager.cs" />
     <Compile Include="DocumentUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlSerializerHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
