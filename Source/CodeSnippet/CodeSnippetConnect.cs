@@ -4,23 +4,28 @@ using System.Linq;
 using System.Text;
 using EnvDTE;
 using EnvDTE80;
+using SSMSTool.Common;
 
 namespace SSMSTool.CodeSnippet
 {
     public class CodeSnippetConnect
     {
+        private const string SYMBOL_CURSOR = "{C}";
+        private const string ACTION_KEY = "\t";
+        
         private DTE2 applicationObject;
         private AddIn addInInstance;
         private TextDocumentKeyPressEvents textPanelKeyEvent;
+        private Dictionary<string, string> codeSnippetsDic;
 
         public CodeSnippetConnect(DTE2 applicationObject, AddIn addInInstance)
         {
             this.applicationObject = applicationObject;
             this.addInInstance = addInInstance;
 
-            //this.Init();
+            this.Init();
+            this.InitCodeSnippetData();
         }
-
 
         private void Init()
         {
@@ -37,66 +42,114 @@ namespace SSMSTool.CodeSnippet
             }
         }
 
+        private void TempSave()
+        {
+            List<CodeSnippetInfo> list = new List<CodeSnippetInfo>();
+            CodeSnippetInfo info = new CodeSnippetInfo();
+            info.ShortKey = "aa";
+            info.Code = "sdfsdf";
+
+            list.Add(info);
+            XmlSerializerHelper.Serialize<List<CodeSnippetInfo>>(list, DataManager.GetPath("CodeSnippet.priavte.xml"));
+        }
+
+        private void InitCodeSnippetData()
+        {
+            List<CodeSnippetInfo> list = XmlSerializerHelper.Deserialize<List<CodeSnippetInfo>>(DataManager.GetPath("CodeSnippet.priavte.xml"));
+            if (list != null)
+            {
+                this.codeSnippetsDic = new Dictionary<string, string>();
+                foreach (var item in list)
+                {
+                    if (!this.codeSnippetsDic.ContainsKey(item.ShortKey))
+                    {
+                        this.codeSnippetsDic.Add(item.ShortKey.ToUpper(), item.Code);
+                    }
+                }
+            }
+        }
 
         private void textPanelKeyEvent_BeforeKeyPress(string Keypress, TextSelection Selection, bool InStatementCompletion, ref bool CancelKeypress)
         {
-            //if (Keypress != "\t")
-            //{
-            //    return;
-            //}
+            if (Keypress != ACTION_KEY)
+            {
+                return;
+            }
 
-            //string key = HitAndMatchPreviousKeyHidden(Selection);
-            //if (string.IsNullOrEmpty(key))
-            //{
-            //    return;
-            //}
+            string key = HitAndMatchPreviousKeyHidden(Selection);
+            if (string.IsNullOrEmpty(key))
+            {
+                return;
+            }
 
-            //Selection.Delete(key.Length);
+            CancelKeypress = true; 
 
-            //CancelKeypress = true;
-            //this.applicationObject.UndoContext.Open("cCOM template insert", false);
-            //cCTELibrary.EnvAddContent(Selection, "SELECT TOP 100 ");
-            //this.applicationObject.UndoContext.Close();
+            string code = this.codeSnippetsDic[key];
+            Selection.Delete(key.Length);
+            TextPoint currentPoint = Selection.AnchorPoint.CreateEditPoint();
+            
+            this.applicationObject.UndoContext.Open("template insert mycodesnippet", false);
+            DocumentUtility.EnvAddContent(Selection, code);
+            SetCursor(Selection, currentPoint, code);
+            this.applicationObject.UndoContext.Close();
         }
 
-        public string HitAndMatchPreviousKeyHidden(TextSelection objSel)
+        private string HitAndMatchPreviousKeyHidden(TextSelection objSel)
         {
-            //TextPoint point3 = objSel.AnchorPoint.CreateEditPoint();
-            //TextPoint point2 = objSel.ActivePoint.CreateEditPoint();
+            string key = null;
+            TextPoint point3 = objSel.AnchorPoint.CreateEditPoint();
+            TextPoint point2 = objSel.ActivePoint.CreateEditPoint();
+            key = DocumentUtility.TreateElement(objSel.Text, true, true);
+            if (!string.IsNullOrEmpty(key))
+            {
+                if (this.codeSnippetsDic.ContainsKey(key))
+                {
+                    return DocumentUtility.TreateElement(objSel.Text, true, true);
+                }
+                else
+                {
+                    return null;
+                }
+            }
 
-            //string key = cCTELibrary.TreateElement(objSel.Text, true, true);
-            //if (!string.IsNullOrEmpty(key))
-            //{
-            //    return key;
-            //}
+            EditPoint point = objSel.ActivePoint.CreateEditPoint();
+            if (string.IsNullOrEmpty(DocumentUtility.TreateElement(point.GetText(1), true, true)))
+            {
+                point.CharLeft(1);
+                if (string.IsNullOrEmpty(DocumentUtility.TreateElement(point.GetText(1), true, true)))
+                {
+                    point.CharRight(1);
+                }
+                else
+                {
+                    point.CharRight(1);
+                    objSel.WordLeft(true, 1);
+                    key = DocumentUtility.TreateElement(objSel.Text, true, true);
+                    if (this.codeSnippetsDic.ContainsKey(key))
+                    {
+                        return DocumentUtility.TreateElement(objSel.Text, true, true);
+                    }
+                }
+            }
 
-            //EditPoint point = objSel.ActivePoint.CreateEditPoint();
-            //if (string.IsNullOrEmpty(cCTELibrary.TreateElement(point.GetText(1), true, true)))
-            //{
-            //    point.CharLeft(1);
-            //    if (string.IsNullOrEmpty(cCTELibrary.TreateElement(point.GetText(1), true, true)))
-            //    {
-            //        point.CharRight(1);
-            //    }
-            //    else
-            //    {
-            //        point.CharRight(1);
-            //        objSel.WordLeft(true, 1);
-            //        key = cCTELibrary.TreateElement(objSel.Text, true, true);
-            //        //if (mDefault.GlobalDBProxy.ActiveCollection.Contains(key))
-            //        //{
+            objSel.MoveToAbsoluteOffset(point3.AbsoluteCharOffset, false);
+            objSel.SwapAnchor();
+            objSel.MoveToAbsoluteOffset(point2.AbsoluteCharOffset, true);
+            return null;
+        }
 
-            //        //}
+        private void SetCursor(TextSelection objSel, TextPoint currentPoint, string code)
+        {
+            if (!code.ToUpper().Contains(SYMBOL_CURSOR))
+            {
+                return;
+            }
 
-            //        return cCTELibrary.TreateElement(objSel.Text, true, true);
-            //    }
-            //}
-
-            //objSel.MoveToAbsoluteOffset(point3.AbsoluteCharOffset, false);
-            //objSel.SwapAnchor();
-            //objSel.MoveToAbsoluteOffset(point2.AbsoluteCharOffset, true);
-
-            return string.Empty;
+            objSel.MoveToPoint(currentPoint);
+            if (objSel.FindText(SYMBOL_CURSOR))
+            {
+                objSel.Delete();
+            }
         }
     }
 }

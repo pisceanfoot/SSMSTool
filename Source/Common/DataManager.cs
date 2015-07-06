@@ -19,10 +19,13 @@ namespace SSMSTool.Common
 
         private static void Init()
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             userFilePath = Path.Combine(path, "SSMSTool");
         }
 
-
+        public static string GetPath(string name)
+        {
+            return Path.Combine(userFilePath, name);
+        }
     }
 }
