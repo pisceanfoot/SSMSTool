@@ -38,7 +38,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-	<Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="EnvDTE">
@@ -101,6 +101,7 @@
     <Compile Include="Command\MenuManager.cs" />
     <Compile Include="Command\PluginManager.cs" />
     <Compile Include="Command\WindowManager.cs" />
+    <Compile Include="CommonConnect.cs" />
     <Compile Include="DataManager.cs" />
     <Compile Include="DocumentUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

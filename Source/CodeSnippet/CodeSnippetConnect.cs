@@ -5,26 +5,24 @@ using System.Text;
 using EnvDTE;
 using EnvDTE80;
 using SSMSTool.Common;
+using SSMSTool.Common.Command;
 
 namespace SSMSTool.CodeSnippet
 {
-    public class CodeSnippetConnect
+    public class CodeSnippetConnect : CommonConnect
     {
         private const string SYMBOL_CURSOR = "{C}";
         private const string ACTION_KEY = "\t";
         
-        private DTE2 applicationObject;
-        private AddIn addInInstance;
+        
         private TextDocumentKeyPressEvents textPanelKeyEvent;
         private Dictionary<string, string> codeSnippetsDic;
 
-        public CodeSnippetConnect(DTE2 applicationObject, AddIn addInInstance)
+        public CodeSnippetConnect(PluginManager pluginManager)
+            : base(pluginManager)
         {
-            this.applicationObject = applicationObject;
-            this.addInInstance = addInInstance;
-
-            this.Init();
-            this.InitCodeSnippetData();
+            //this.Init();
+            //this.InitCodeSnippetData();
         }
 
         private void Init()
@@ -55,10 +53,11 @@ namespace SSMSTool.CodeSnippet
 
         private void InitCodeSnippetData()
         {
+            this.codeSnippetsDic = new Dictionary<string, string>();
+
             List<CodeSnippetInfo> list = XmlSerializerHelper.Deserialize<List<CodeSnippetInfo>>(DataManager.GetPath("CodeSnippet.priavte.xml"));
-            if (list != null)
+            if (list != null && list.Count > 0)
             {
-                this.codeSnippetsDic = new Dictionary<string, string>();
                 foreach (var item in list)
                 {
                     if (!this.codeSnippetsDic.ContainsKey(item.ShortKey))

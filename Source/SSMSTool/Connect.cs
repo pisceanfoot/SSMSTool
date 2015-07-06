@@ -36,19 +36,19 @@ namespace SSMSTool
             _addInInstance = (AddIn)addInInst;
             _applicationObject = (DTE2)_addInInstance.DTE;
 
+            pluginManager = new PluginManager(_applicationObject, _addInInstance);
+
             if (connectMode == ext_ConnectMode.ext_cm_Startup)
             {
                 CreateUI();
             }
 
-            this.codeSnippet = new CodeSnippetConnect(_applicationObject, _addInInstance);
+            this.codeSnippet = new CodeSnippetConnect(pluginManager);
 		}
 
         
         private void CreateUI()
         {
-            pluginManager = new PluginManager(_applicationObject, _addInInstance);
-
             CommandBarPopup sqlToolCommandBar = pluginManager.MenuManager.CreatePopupMenu("MenuBar", "SQL Tools", 4);
             //CommandBarPopup quickFindCommandBar = pluginManager.MenuManager.AddSubPopupMenu(sqlToolCommandBar, "Quick Find", 1);
 

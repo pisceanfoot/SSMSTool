@@ -25,6 +25,23 @@ namespace SSMSTool.Common.Command
             windowManager = new WindowManager(_applicationObject, _addInInstance);
         }
 
+        public DTE2 ApplicationObject
+        {
+            get
+            {
+                return this._applicationObject;
+            }
+        }
+
+        public AddIn AddInInstance
+        {
+            get
+            {
+                return this._addInInstance;
+            }
+        }
+
+
         public MenuManager MenuManager 
         {
             get
