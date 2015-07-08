@@ -56,5 +56,10 @@
             <param term='handled'>Informs the caller if the command was handled or not.</param>
             <seealso class='Exec' />
         </member>
+        <member name="T:SSMSTool.SSMSPlugin">
+            <summary>
+            
+            </summary>
+        </member>
     </members>
 </doc>

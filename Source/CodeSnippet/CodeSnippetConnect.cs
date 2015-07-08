@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft.VisualStudio.CommandBars;
 using SSMSTool.Common;
 using SSMSTool.Common.Command;
 
@@ -21,8 +22,14 @@ namespace SSMSTool.CodeSnippet
         public CodeSnippetConnect(PluginManager pluginManager)
             : base(pluginManager)
         {
-            //this.Init();
-            //this.InitCodeSnippetData();
+            CodeSnippetSetting setting = LoadData();
+            if (setting != null && setting.Enabled)
+            {
+                this.Init();
+                this.InitCodeSnippetData(setting);
+            }
+
+            this.SetUI();
         }
 
         private void Init()
@@ -40,29 +47,57 @@ namespace SSMSTool.CodeSnippet
             }
         }
 
+        private void SetUI()
+        {
+            CommandBarPopup sqlToolCommandBar = pluginManager.MenuManager.CreatePopupMenu("MenuBar", "SQL Tools", 4);
+            CommandBarPopup commandBar = pluginManager.MenuManager.AddSubPopupMenu(sqlToolCommandBar, "Code Snippet", 1);
+
+            OptionCommand command = new OptionCommand("Options", "");
+            command.CodeSnippetConnect = this;
+            pluginManager.MenuManager.AddCommandMenu(commandBar, command, 1);
+        }
+
         private void TempSave()
         {
             List<CodeSnippetInfo> list = new List<CodeSnippetInfo>();
             CodeSnippetInfo info = new CodeSnippetInfo();
             info.ShortKey = "aa";
-            info.Code = "sdfsdf";
+            info.Content = "sdfsdf";
 
             list.Add(info);
             XmlSerializerHelper.Serialize<List<CodeSnippetInfo>>(list, DataManager.GetPath("CodeSnippet.priavte.xml"));
         }
 
-        private void InitCodeSnippetData()
+        public CodeSnippetSetting LoadData() 
+        {
+            CodeSnippetSetting setting = XmlSerializerHelper.Deserialize<CodeSnippetSetting>(DataManager.GetPath("CodeSnippet.priavte.xml"));
+            return setting;
+        }
+
+        public void SaveData(CodeSnippetSetting setting)
+        {
+            XmlSerializerHelper.Serialize<CodeSnippetSetting>(setting, DataManager.GetPath("CodeSnippet.priavte.xml"));
+            
+            // reload
+            this.InitCodeSnippetData(setting);
+        }
+
+        public void InitCodeSnippetData(CodeSnippetSetting setting)
         {
             this.codeSnippetsDic = new Dictionary<string, string>();
 
-            List<CodeSnippetInfo> list = XmlSerializerHelper.Deserialize<List<CodeSnippetInfo>>(DataManager.GetPath("CodeSnippet.priavte.xml"));
+            if (!setting.Enabled) return;
+
+            List<CodeSnippetInfo> list = setting.CodeList;
             if (list != null && list.Count > 0)
             {
                 foreach (var item in list)
                 {
-                    if (!this.codeSnippetsDic.ContainsKey(item.ShortKey))
+                    if (!string.IsNullOrEmpty(item.ShortKey) && 
+                        !this.codeSnippetsDic.ContainsKey(item.ShortKey) &&
+                        !string.IsNullOrEmpty(item.Content))
                     {
-                        this.codeSnippetsDic.Add(item.ShortKey.ToUpper(), item.Code);
+                        this.codeSnippetsDic.Add(item.ShortKey.ToUpper(), item.Content);
                     }
                 }
             }

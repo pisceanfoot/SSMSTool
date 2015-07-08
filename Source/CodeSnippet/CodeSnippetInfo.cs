@@ -9,8 +9,13 @@ namespace SSMSTool.CodeSnippet
     [Serializable]
     public class CodeSnippetInfo
     {
+        [XmlElement("shortkey")]
         public string ShortKey { get; set; }
 
-        public string Code { get; set; }
+        [XmlElement("content")]
+        public string Content { get; set; }
+
+        [XmlElement("active")]
+        public bool Active { get; set; }
     }
 }

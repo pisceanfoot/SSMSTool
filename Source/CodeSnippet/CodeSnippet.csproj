@@ -31,8 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ObjectListView">
+      <HintPath>..\Lib\ObjectListView.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -96,7 +101,15 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeSnippetSetting.cs" />
+    <Compile Include="OptionCommand.cs" />
     <Compile Include="CodeSnippetConnect.cs" />
+    <Compile Include="CodeSnippetEditorFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CodeSnippetEditorFrm.Designer.cs">
+      <DependentUpon>CodeSnippetEditorFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CodeSnippetInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -105,6 +118,11 @@
       <Project>{827a21c8-9da6-4ff5-bea3-23bf3958fe1b}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CodeSnippetEditorFrm.resx">
+      <DependentUpon>CodeSnippetEditorFrm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

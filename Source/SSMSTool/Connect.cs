@@ -40,20 +40,22 @@ namespace SSMSTool
 
             if (connectMode == ext_ConnectMode.ext_cm_Startup)
             {
-                CreateUI();
+                //CreateUI();
+                this.codeSnippet = new CodeSnippetConnect(pluginManager);
             }
-
-            this.codeSnippet = new CodeSnippetConnect(pluginManager);
 		}
 
         
         private void CreateUI()
         {
             CommandBarPopup sqlToolCommandBar = pluginManager.MenuManager.CreatePopupMenu("MenuBar", "SQL Tools", 4);
-            //CommandBarPopup quickFindCommandBar = pluginManager.MenuManager.AddSubPopupMenu(sqlToolCommandBar, "Quick Find", 1);
+            CommandBarPopup quickFindCommandBar = pluginManager.MenuManager.AddSubPopupMenu(sqlToolCommandBar, "Quick Find", 1);
+            pluginManager.MenuManager.AddSubPopupMenu(quickFindCommandBar, "ss", 1);
 
             TestCommand command = new TestCommand("Test", "ddd");
             pluginManager.MenuManager.AddCommandMenu(sqlToolCommandBar, command, 1);
+
+
         }
 
 		/// <summary>Implements the OnDisconnection method of the IDTExtensibility2 interface. Receives notification that the Add-in is being unloaded.</summary>
