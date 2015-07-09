@@ -86,6 +86,7 @@ namespace SSMSTool.CodeSnippet
         {
             this.codeSnippetsDic = new Dictionary<string, string>();
 
+            if (setting == null) return;
             if (!setting.Enabled) return;
 
             List<CodeSnippetInfo> list = setting.CodeList;
@@ -93,7 +94,8 @@ namespace SSMSTool.CodeSnippet
             {
                 foreach (var item in list)
                 {
-                    if (!string.IsNullOrEmpty(item.ShortKey) && 
+                    if (item.Active &&
+                        !string.IsNullOrEmpty(item.ShortKey) && 
                         !this.codeSnippetsDic.ContainsKey(item.ShortKey) &&
                         !string.IsNullOrEmpty(item.Content))
                     {
